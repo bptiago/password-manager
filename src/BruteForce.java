@@ -10,24 +10,29 @@ public class BruteForce {
 
         // Limitar em 5 iterações por segurança
         for (int size = 1; size < 5; size++) {
-            if (tryPasswordsBySize(size, hash)) {
+            if (findPasswordsBySize(size, hash)) {
                 break;
+            }
+
+            if (size == 4) {
+                String str = String.format("Algoritmo falhou. É possível que a senha não tenha sido encontrada ou que ela seja maior que %d letras.", size);
+                System.out.println(str);
             }
         }
 
         double timeElapsed = (double) (System.currentTimeMillis() - initTime) / 1000;
-        String str = String.format("O algoritmo levou %.2f segundos.", timeElapsed);
+        String str = String.format("O algoritmo executou por %.2f segundos.", timeElapsed);
         System.out.println(str);
     }
 
-    private boolean tryPasswordsBySize(int size, String hash) {
+    private boolean findPasswordsBySize(int size, String hash) {
         char [] chars = GENERATOR.getCharacters().toCharArray();
         int n = chars.length;
-        return _tryPasswords(chars, "", n, size, hash);
+        return _findPasswords(chars, "", n, size, hash);
     }
 
     // Função recursiva
-    private boolean _tryPasswords(char[] chars, String prefix, int n, int k, String hash) {
+    private boolean _findPasswords(char[] chars, String prefix, int n, int k, String hash) {
         if (k == 0) {
             System.out.println(prefix);
             return false;
@@ -46,8 +51,8 @@ public class BruteForce {
                 throw new RuntimeException(e);
             }
 
-            boolean match = _tryPasswords(chars, combination, n, k - 1, hash);
-            if (match) return true;
+            boolean found = _findPasswords(chars, combination, n, k - 1, hash);
+            if (found) return true;
         }
 
         return false;

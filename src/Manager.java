@@ -14,7 +14,7 @@ public class Manager {
                 scanner.nextLine();
                 return choice;
             } catch (InputMismatchException e) {
-                System.out.println("Incorreto. Insira somente números válidos.");
+                System.out.println("\nIncorreto. Insira somente números.");
                 // Isso é para resetar a leitura de input e evitar bug
                 scanner.next();
             }
@@ -26,7 +26,7 @@ public class Manager {
 
         int choice = getInput("Selecione uma das opções disponíveis:\n1) Gerar senha aleatória\n2) Quebrar hash");
         if (choice == 1) {
-            int passwordSize = getInput("Digite o tamanho da senha desejada: ");
+            int passwordSize = getInput("Digite o tamanho da senha desejada (mínimo 4): ");
             Generator generator = new Generator();
             String password = generator.generatePassword(passwordSize);
             System.out.println("\nSenha gerada aleatoriamente: " + password);
@@ -45,6 +45,8 @@ public class Manager {
 
             BruteForce bf = new BruteForce();
             bf.forceHash(hash);
+        } else {
+            System.out.println("Opção inválida. Finalizando o programa.");
         }
     }
 }
