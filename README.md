@@ -1,4 +1,4 @@
-# Password Manager
+# Password Breaker
 
 <b>This was made solely for educational purposes!</b>
 
