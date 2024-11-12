@@ -2,7 +2,7 @@
 
 <b>This was made solely for educational purposes!</b>
 
-This is a Java program for generating random secure passwords and also breaking unsalted SHA-256 hashes.
+This is a Java program for breaking unsalted SHA-256 hashes.
 
 The hashes are broken by brute force trough trial and error of all possible combinations to a set number of characters.
 

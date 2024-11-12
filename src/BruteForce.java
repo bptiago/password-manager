@@ -1,15 +1,22 @@
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 public class BruteForce {
-    private static final Generator GENERATOR = new Generator();
+    private final String lowercase = "abcdefghijklmnopqrstuvwxyz";
+    private final String uppercase = lowercase.toUpperCase();
+    private final String specialChars = "!@#$*()-_=+?^";
+    private final String numbers = "0123456789";
+
+    private final String CHARS = lowercase + uppercase + specialChars + numbers;
 
     public void forceHash(String hash) {
         long initTime = System.currentTimeMillis();
+        long limit = 5L;
 
-        // Limitar em 5 iterações por segurança
-        for (int size = 1; size < 5; size++) {
+        // Limitar em {limit} número de chars por senha
+        for (int size = 1; size < limit; size++) {
             if (findPasswordsBySize(size, hash)) {
                 break;
             }
@@ -26,7 +33,7 @@ public class BruteForce {
     }
 
     private boolean findPasswordsBySize(int size, String hash) {
-        char [] chars = GENERATOR.getCharacters().toCharArray();
+        char [] chars = CHARS.toCharArray();
         int n = chars.length;
         return _findPasswords(chars, "", n, size, hash);
     }
