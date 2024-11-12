@@ -8,12 +8,17 @@ public class BruteForce {
     private final String uppercase = lowercase.toUpperCase();
     private final String specialChars = "!@#$*()-_=+?^";
     private final String numbers = "0123456789";
-
     private final String CHARS = lowercase + uppercase + specialChars + numbers;
+
+    private final String algorithm;
+
+    public BruteForce(String algorithm) {
+        this.algorithm = algorithm;
+    }
 
     public void forceHash(String hash) {
         long initTime = System.currentTimeMillis();
-        long limit = 5L;
+        int limit = 5;
 
         // Limitar em {limit} número de chars por senha
         for (int size = 1; size < limit; size++) {
@@ -66,7 +71,7 @@ public class BruteForce {
     }
 
     private String generateHash(String input) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        MessageDigest md = MessageDigest.getInstance(this.algorithm);
         byte[] hashBytes = md.digest(input.getBytes(StandardCharsets.UTF_8));
         return bytesToHex(hashBytes);
     }
